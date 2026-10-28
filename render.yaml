@@ -15,5 +15,3 @@ services:
         sync: false
       - key: ADMIN_BOOTSTRAP_PASSWORD
         sync: false
-      - key: CLIENT_ORIGIN
-        sync: false

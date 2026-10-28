@@ -19,18 +19,35 @@ const configuredOrigins = new Set(
     .map((origin) => origin.trim()),
 );
 app.use(
-  cors({
-    origin(origin, callback) {
-      const isLocalDevelopmentOrigin =
-        /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || "");
-      if (!origin || configuredOrigins.has(origin) || isLocalDevelopmentOrigin)
-        return callback(null, true);
-      return callback(
-        new Error(
-          `Website origin "${origin}" is not allowed by the API. Add it to CLIENT_ORIGIN in .env, then restart the server.`,
-        ),
+  cors((request, callback) => {
+    const requestOrigin = request.get("Origin");
+    const requestHost = request.get("Host");
+    let isSameOrigin = false;
+    try {
+      isSameOrigin = Boolean(
+        requestOrigin && new URL(requestOrigin).host === requestHost,
       );
-    },
+    } catch {}
+
+    callback(null, {
+      origin(origin, originCallback) {
+        const isLocalDevelopmentOrigin =
+          /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || "");
+        if (
+          !origin ||
+          configuredOrigins.has(origin) ||
+          isLocalDevelopmentOrigin ||
+          isSameOrigin
+        ) {
+          return originCallback(null, true);
+        }
+        return originCallback(
+          new Error(
+            `Website origin "${origin}" is not allowed by the API. Add it to CLIENT_ORIGIN in .env, then restart the server.`,
+          ),
+        );
+      },
+    });
   }),
 );
 app.use(express.json({ limit: "100kb" }));
