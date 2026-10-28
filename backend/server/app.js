@@ -6,6 +6,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const connectDatabase = require("./config/database");
+const bootstrapAdmin = require("./config/bootstrapAdmin");
 const authRoutes = require("./routes/auth");
 const courseRoutes = require("./routes/courses");
 const enquiryRoutes = require("./routes/enquiries");
@@ -84,11 +85,12 @@ app.get("*", (_request, response) =>
 );
 
 connectDatabase()
-  .then(() =>
+  .then(bootstrapAdmin)
+  .then(() => {
     app.listen(port, () =>
       console.log(`Admission API running at http://localhost:${port}`),
-    ),
-  )
+    );
+  })
   .catch((error) => {
     console.error("Could not connect to MongoDB:", error.message);
     process.exitCode = 1;

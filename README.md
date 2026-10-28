@@ -44,7 +44,7 @@ The included `render.yaml` configures one Render web service to build the fronte
 - `MONGODB_URI`: a MongoDB Atlas connection string for a database you control.
 - `ADMIN_BOOTSTRAP_PASSWORD`: a unique password with at least 12 characters.
 
-Render generates `JWT_SECRET` automatically. The API accepts same-origin requests from its deployed website, so no production `CLIENT_ORIGIN` value is needed. After the service is created, run `npm run create-admin` from `backend/` once with the same production `MONGODB_URI` and `ADMIN_BOOTSTRAP_PASSWORD` to create the first admin account. Keep these values private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
+Render generates `JWT_SECRET` automatically. The API accepts same-origin requests from its deployed website, so no production `CLIENT_ORIGIN` value is needed. On first startup, the service creates `admin@northfield.local` using `ADMIN_BOOTSTRAP_PASSWORD` if that account does not already exist; later restarts do not reset its password. Keep the database URL and bootstrap password private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
 
 ## API
 
