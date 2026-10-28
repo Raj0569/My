@@ -37,6 +37,16 @@ Bootstrap the database Super Admin by setting `MONGODB_URI` and `ADMIN_BOOTSTRAP
 
 For a production build, run `npm run build` in `frontend/`. The backend serves `frontend/dist` from its own origin when it exists.
 
+## Deploy publicly with Render
+
+The included `render.yaml` configures one Render web service to build the frontend and serve it with the API. To deploy it, sign in to Render, create a Blueprint from `Raj0569/My`, and choose the `main` branch. During setup, provide:
+
+- `MONGODB_URI`: a MongoDB Atlas connection string for a database you control.
+- `ADMIN_BOOTSTRAP_PASSWORD`: a unique password with at least 12 characters.
+- `CLIENT_ORIGIN`: the exact HTTPS URL Render assigns to the service.
+
+Render generates `JWT_SECRET` automatically. After the service is created, run `npm run create-admin` from `backend/` once with the same production `MONGODB_URI` and `ADMIN_BOOTSTRAP_PASSWORD` to create the first admin account. Keep these values private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
+
 ## API
 
 The API is available at `/api` on port 5000. Protected routes use `Authorization: Bearer <token>`.
