@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5f1">
+  <title>Admin Console — Northfield College</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <main class="login-screen" id="login-screen">
+    <a class="admin-brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="M6 24V10.5c3.2-.5 6.6.3 10 2.6 3.4-2.3 6.8-3.1 10-2.6V24c-3.6-.4-6.9.4-10 2.4C12.9 24.4 9.6 23.6 6 24Z"/><path d="M16 13v13.4M9.5 15c1.9.1 3.6.6 5 1.5m8-1.5c-1.9.1-3.6.6-5 1.5"/></svg></span><span>northfield<small>ADMISSIONS OFFICE</small></span></a>
+    <form class="login-card" id="admin-login-form">
+      <div class="eyebrow">STAFF ACCESS</div>
+      <h1>Good to have<br><em>you back.</em></h1>
+      <p>Sign in to manage admissions, courses, and enquiries.</p>
+      <label>Admin email<input name="email" type="email" autocomplete="username" required placeholder="admin@college.edu"></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required placeholder="Your admin password"></label>
+      <button class="primary-button" type="submit">Sign in <span>↗</span></button>
+      <p class="feedback" id="login-feedback" role="status" aria-live="polite"></p>
+      <small class="security-note">Administrator access is separate from the student portal.</small>
+    </form>
+  </main>
+
+  <div class="admin-app" id="admin-app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a class="admin-brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="M6 24V10.5c3.2-.5 6.6.3 10 2.6 3.4-2.3 6.8-3.1 10-2.6V24c-3.6-.4-6.9.4-10 2.4C12.9 24.4 9.6 23.6 6 24Z"/><path d="M16 13v13.4M9.5 15c1.9.1 3.6.6 5 1.5m8-1.5c-1.9.1-3.6.6-5 1.5"/></svg></span><span>northfield<small>ADMISSIONS OFFICE</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Admin sections">
+        <button class="side-link is-active" data-view="overview"><span>◫</span> Overview</button>
+        <button class="side-link" data-view="applications"><span>▤</span> Applications <b id="pending-badge">0</b></button>
+        <button class="side-link" data-view="enquiries"><span>✳</span> Enquiries</button>
+        <button class="side-link" data-view="courses"><span>⌘</span> Courses</button>
+      </nav>
+      <div class="sidebar-bottom"><a href="../index.html">← View student website</a><button id="logout-button">Sign out <span>↗</span></button></div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar"><button class="mobile-menu" id="mobile-menu" aria-label="Toggle menu">☰</button><div><span class="topbar-label">NORTHFIELD COLLEGE</span><span class="topbar-section" id="topbar-section">Overview</span></div><div class="admin-profile"><span class="profile-avatar" id="profile-avatar">A</span><span><strong id="admin-name">Administrator</strong><small>Admissions staff</small></span></div></header>
+      <div class="content-area">
+        <div class="global-feedback" id="global-feedback" role="status" aria-live="polite"></div>
+
+        <section class="view-section is-visible" id="view-overview">
+          <div class="page-heading"><div><div class="eyebrow">YOUR ADMISSIONS DESK</div><h1>A clearer view<br>of <em>what’s moving.</em></h1><p>Keep track of applications, enquiries, and the courses you offer.</p></div><button class="outline-button" data-refresh>↻ &nbsp;Refresh data</button></div>
+          <div class="stats-grid"><article class="stat-card"><span>Total applications</span><strong id="stat-applications">—</strong><small>All submitted applications</small></article><article class="stat-card stat-highlight"><span>Needs review</span><strong id="stat-pending">—</strong><small>Submitted or under review</small></article><article class="stat-card"><span>Total enquiries</span><strong id="stat-enquiries">—</strong><small>New enquiries to follow up</small></article><article class="stat-card"><span>Active courses</span><strong id="stat-courses">—</strong><small>Currently listed programs</small></article></div>
+          <div class="overview-grid"><article class="panel-card"><div class="panel-heading"><div><h2>Recent applications</h2><p>Latest student submissions</p></div><button class="inline-link" data-go="applications">See all ↗</button></div><div class="table-wrap"><table><thead><tr><th>Applicant</th><th>Course</th><th>Submitted</th><th>Status</th></tr></thead><tbody id="recent-applications"></tbody></table></div></article><article class="welcome-card"><span class="welcome-star">✳</span><div class="eyebrow">A SMALL REMINDER</div><h2>Every application is someone’s next chapter.</h2><p>Review the details carefully and keep status updates clear for each applicant.</p><button class="welcome-action" data-go="applications">Review applications <span>↗</span></button></article></div>
+        </section>
+
+        <section class="view-section" id="view-applications">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">STUDENT RECORDS</div><h1>Applications</h1><p>Review submissions and keep applicants informed.</p></div><button class="outline-button" data-refresh>↻ &nbsp;Refresh</button></div>
+          <article class="panel-card full-panel"><div class="panel-heading"><div><h2>All applications</h2><p id="application-caption">Latest submissions first</p></div><label class="filter-select"><span>Status</span><select id="application-filter"><option value="">All statuses</option><option>Submitted</option><option>Under Review</option><option>Approved</option><option>Rejected</option><option>Admission Confirmed</option></select></label></div><div class="table-wrap"><table class="wide-table"><thead><tr><th>Application</th><th>Student</th><th>Course</th><th>Submitted</th><th>Status</th><th>Update status</th></tr></thead><tbody id="applications-table"></tbody></table></div><div class="empty-message" id="applications-empty" hidden>No applications found for this filter.</div></article>
+        </section>
+
+        <section class="view-section" id="view-enquiries">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">PROSPECTIVE STUDENTS</div><h1>Enquiries</h1><p>Follow up with people exploring Northfield.</p></div><button class="outline-button" data-refresh>↻ &nbsp;Refresh</button></div>
+          <article class="panel-card full-panel"><div class="panel-heading"><div><h2>Admission enquiries</h2><p id="enquiry-caption">Newest enquiries first</p></div></div><div class="table-wrap"><table class="wide-table"><thead><tr><th>Name & contact</th><th>Interested course</th><th>Message</th><th>Received</th><th>Follow-up</th></tr></thead><tbody id="enquiries-table"></tbody></table></div><div class="empty-message" id="enquiries-empty" hidden>No enquiries yet.</div></article>
+        </section>
+
+        <section class="view-section" id="view-courses">
+          <div class="page-heading compact-heading"><div><div class="eyebrow">PROGRAM CATALOGUE</div><h1>Courses</h1><p>Keep course details up to date for applicants.</p></div><button class="primary-button add-course-button" id="add-course-button">Add a course <span>＋</span></button></div>
+          <div class="course-admin-grid" id="course-admin-grid"></div><div class="empty-message" id="courses-empty" hidden>No active courses. Add one to make it available to students.</div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="course-dialog" id="course-dialog">
+    <form id="course-form" method="dialog">
+      <div class="dialog-heading"><div><div class="eyebrow">COURSE INFORMATION</div><h2 id="course-dialog-title">Add a course</h2></div><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+      <input type="hidden" name="courseId">
+      <label>Course name<input name="name" required maxlength="100" placeholder="e.g. Computer Science"></label>
+      <div class="form-columns"><label>Course code<input name="code" maxlength="20" placeholder="e.g. BCA"></label><label>Category<input name="category" required maxlength="50" placeholder="Technology"></label></div>
+      <div class="form-columns"><label>Duration<input name="duration" required placeholder="3 years"></label><label>Annual fee (₹)<input name="annualFee" type="number" min="0" required placeholder="65000"></label></div>
+      <label>Eligibility<input name="eligibility" required placeholder="12th · Any stream"></label>
+      <label>Short description<textarea name="description" rows="3" required maxlength="2000" placeholder="What will students learn?"></textarea></label>
+      <div class="dialog-actions"><button class="outline-button dialog-cancel" type="button">Cancel</button><button class="primary-button" type="submit">Save course <span>↗</span></button></div>
+    </form>
+  </dialog>
+</body>
+</html>

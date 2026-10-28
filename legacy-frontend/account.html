@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Student Account — Northfield College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages.css">
+    <link rel="stylesheet" href="forms.css">
+    <script src="api.js" defer></script>
+    <script src="account.js" defer></script>
+</head>
+
+<body>
+    <div class="announcement"><span class="announcement-dot"></span> Student account <a href="apply.html">Apply online
+            ↗</a></div>
+    <header class="site-header"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg
+                    viewBox="0 0 32 32" focusable="false">
+                    <path
+                        d="M6 24V10.5c3.2-.5 6.6.3 10 2.6 3.4-2.3 6.8-3.1 10-2.6V24c-3.6-.4-6.9.4-10 2.4C12.9 24.4 9.6 23.6 6 24Z" />
+                    <path d="M16 13v13.4M9.5 15c1.9.1 3.6.6 5 1.5m8-1.5c-1.9.1-3.6.6-5 1.5" />
+                </svg></span><span class="brand-name">northfield<span>COLLEGE</span></span></a><button
+            class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+        <nav class="main-nav"><a href="about.html">Our college</a><a href="courses.html">Courses</a><a
+                href="admissions.html">Admissions</a><a href="enquiry.html">Contact</a><a class="nav-login"
+                href="portal.html">Track application ↗</a></nav>
+    </header>
+    <main>
+        <section class="inner-hero compact">
+            <div class="section-kicker">STUDENT PORTAL</div>
+            <h1>Your next step, <em>starts here.</em></h1>
+            <p>Create a student account or sign in to submit and track applications.</p>
+        </section>
+        <section class="section-pad account-section">
+            <div class="account-card">
+                <div class="account-tabs" role="tablist"><button class="account-tab is-active" type="button"
+                        data-panel="login-panel" role="tab" aria-selected="true">Sign in</button><button
+                        class="account-tab" type="button" data-panel="register-panel" role="tab"
+                        aria-selected="false">Create account</button></div>
+                <form id="login-form" class="account-form">
+                    <h2>Welcome <em>back.</em></h2>
+                    <p>Sign in to continue your application.</p><label>Email address<input type="email" name="email"
+                            autocomplete="email" required placeholder="you@example.com"></label><label>Password<input
+                            type="password" name="password" autocomplete="current-password" required minlength="8"
+                            placeholder="At least 8 characters"></label><button class="button button-dark"
+                        type="submit">Sign in <span>↗</span></button>
+                    <p class="form-feedback" data-feedback role="status"></p>
+                </form>
+                <form id="register-form" class="account-form" hidden>
+                    <h2>Make it <em>official.</em></h2>
+                    <p>Create your student account to apply online.</p><label>Full name<input name="name"
+                            autocomplete="name" required minlength="2"
+                            placeholder="As on your documents"></label><label>Email address<input type="email"
+                            name="email" autocomplete="email" required
+                            placeholder="you@example.com"></label><label>Phone number<input type="tel" name="phone"
+                            autocomplete="tel" inputmode="tel" pattern="[0-9+() -]{8,18}" required
+                            placeholder="10-digit number"></label><label>Create password<input type="password"
+                            name="password" autocomplete="new-password" required minlength="8"
+                            placeholder="At least 8 characters"></label><button class="button button-dark"
+                        type="submit">Create account <span>↗</span></button>
+                    <p class="form-feedback" data-feedback role="status"></p>
+                </form>
+            </div>
+            <aside class="contact-aside"><span class="step-icon">✓</span>
+                <h2>One account, one place.</h2>
+                <p>Your account lets you submit an application and view it later. This college project stores the login
+                    session in this browser.</p><small>Use a demo password for project presentation. Never reuse your
+                    personal password.</small>
+            </aside>
+        </section>
+    </main>
+    <footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark"
+                aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false">
+                    <path
+                        d="M6 24V10.5c3.2-.5 6.6.3 10 2.6 3.4-2.3 6.8-3.1 10-2.6V24c-3.6-.4-6.9.4-10 2.4C12.9 24.4 9.6 23.6 6 24Z" />
+                    <path d="M16 13v13.4M9.5 15c1.9.1 3.6.6 5 1.5m8-1.5c-1.9.1-3.6.6-5 1.5" />
+                </svg></span><span class="brand-name">northfield<span>COLLEGE</span></span></a>
+        <p>Find your place. Make your mark.</p>
+        <div class="footer-links"><a href="about.html">About</a><a href="courses.html">Courses</a><a
+                href="admissions.html">Admissions</a><a href="enquiry.html">Contact</a></div><small>© 2026 Northfield
+            College · Sample project content</small>
+    </footer>
+</body>
+
+</html>
