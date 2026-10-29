@@ -179,14 +179,14 @@ function CourseAdmin({ courses, reload, permissions }) {
         {courses.map((course) => (
           <article className="course-card" key={course._id}>
             <div className="course-category">
-              {course.category} Â· {course.code || "â€”"}
+              {course.category} · {course.code || "—"}
             </div>
             <h3>{course.name}</h3>
             <p>{course.description}</p>
             <div className="course-meta">
               {course.duration}
               <span>
-                â‚¹{Number(course.annualFee).toLocaleString("en-IN")} / year
+                ₹{Number(course.annualFee).toLocaleString("en-IN")} / year
               </span>
             </div>
             <div className="course-actions">
@@ -369,7 +369,7 @@ function Admin() {
               Password
               <input name="password" type="password" required />
             </label>
-            <button className="button dark">Sign in â†—</button>
+            <button className="button dark">Sign in ↗</button>
             <p className="feedback">{feedback}</p>
           </form>
         </section>
@@ -523,7 +523,7 @@ function Admin() {
                         </small>
                       </td>
                       <td>{item.course}</td>
-                      <td>{item.message || "â€”"}</td>
+                      <td>{item.message || "—"}</td>
                       <td>
                         {new Date(item.createdAt).toLocaleDateString("en-IN")}
                       </td>
@@ -566,7 +566,7 @@ function Admin() {
               onClick={(event) => event.stopPropagation()}
             >
               <button className="modal-close" onClick={() => setSelected(null)}>
-                Ã—
+                ×
               </button>
               <div className="eyebrow">STUDENT APPLICATION</div>
               <h2>{selected.personalDetails?.name}</h2>
@@ -610,7 +610,7 @@ function Admin() {
                 ].map(([label, value]) => (
                   <div key={label}>
                     <dt>{label}</dt>
-                    <dd>{value || "â€”"}</dd>
+                    <dd>{value || "—"}</dd>
                   </div>
                 ))}
               </dl>
