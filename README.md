@@ -43,6 +43,7 @@ The included `render.yaml` configures one Render web service to build the fronte
 
 - `MONGODB_URI`: a MongoDB Atlas connection string for a database you control.
 - `ADMIN_BOOTSTRAP_PASSWORD`: a unique password with at least 12 characters.
+- `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`: server-side Razorpay API keys. Start with test-mode keys; never put the secret in frontend code or Git.
 
 Render generates `JWT_SECRET` automatically. The API accepts same-origin requests from its deployed website, so no production `CLIENT_ORIGIN` value is needed. On startup, the service adds the sample catalogue and fills in missing course-detail fields without overwriting details already edited by staff. It creates `admin@northfield.local` using `ADMIN_BOOTSTRAP_PASSWORD` if that account does not already exist; later restarts do not reset its password. Keep the database URL and bootstrap password private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
 
@@ -58,3 +59,5 @@ The API is available at `/api` on port 5000. Protected routes use `Authorization
 - Applications: student submit/list/track and protected staff review endpoints
 
 Course descriptions, college branding, fees, and contact details are sample project content. The seeded course structures and career paths are indicative examples, not an approved syllabus or verified placement record; staff can replace them with college-confirmed information in the admin Courses section.
+
+Course registration checks the structured eligibility rules configured for each course before creating a Razorpay order for the non-refundable ₹5,000 slot-booking fee. The server verifies the payment signature and captured amount before marking a slot booked and moving the application into review. Configure Razorpay to auto-capture payments and test with test-mode keys before enabling live keys.

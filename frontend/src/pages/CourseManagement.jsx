@@ -13,12 +13,23 @@ const fields = [
 
 const detailFields = [
   ["eligibilityDetails", "Detailed eligibility criteria"],
+  ["eligibleQualifications", "Accepted qualifications (one per line)"],
+  ["eligibleStreams", "Accepted streams (one per line; use Any stream for all)"],
+  ["requiredSubjects", "Required subjects (one per line)"],
+  ["minimumPercentage", "Minimum qualifying percentage"],
   ["courseStructure", "Course structure (one year or term per line)"],
+  ["learningOutcomes", "Learning outcomes (one per line)"],
+  ["requiredDocuments", "Required documents (one per line)"],
   ["placementDetails", "Placement information and career paths"],
 ];
+const listFields = new Set(["eligibleQualifications", "eligibleStreams", "requiredSubjects", "courseStructure", "learningOutcomes", "requiredDocuments"]);
 
 function structureText(value) {
   return Array.isArray(value) ? value.join("\n") : value || "";
+}
+
+function listValue(value) {
+  return structureText(value).split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
 }
 
 export default function CourseManagement({ courses, coursePage, coursePages, courseTotal, search, setSearch, statusFilter, setStatusFilter, page, setPage, loadCourses, permissions, setFeedback }) {
@@ -30,8 +41,15 @@ export default function CourseManagement({ courses, coursePage, coursePages, cou
     setDraft({
       name: "", code: "", category: "", duration: "", annualFee: "",
       eligibility: "", eligibilityDetails: "", courseStructure: "",
+      eligibleQualifications: "", eligibleStreams: "", requiredSubjects: "",
+      minimumPercentage: "", learningOutcomes: "", requiredDocuments: "",
       placementDetails: "", description: "", ...course,
+      eligibleQualifications: structureText(course.eligibleQualifications),
+      eligibleStreams: structureText(course.eligibleStreams),
+      requiredSubjects: structureText(course.requiredSubjects),
       courseStructure: structureText(course.courseStructure),
+      learningOutcomes: structureText(course.learningOutcomes),
+      requiredDocuments: structureText(course.requiredDocuments),
     });
     setModal(mode);
   }
@@ -43,9 +61,9 @@ export default function CourseManagement({ courses, coursePage, coursePages, cou
     const body = {
       ...draft,
       annualFee: Number(draft.annualFee),
-      courseStructure: structureText(draft.courseStructure)
-        .split(/\r?\n/).map((line) => line.trim()).filter(Boolean),
+      minimumPercentage: draft.minimumPercentage === "" ? null : Number(draft.minimumPercentage),
     };
+    for (const key of listFields) body[key] = listValue(draft[key]);
     try {
       await api(editing ? `/courses/${draft._id}` : "/courses", {
         method: editing ? "PATCH" : "POST",
@@ -86,7 +104,8 @@ export default function CourseManagement({ courses, coursePage, coursePages, cou
 
   function displayValue(key) {
     if (key === "annualFee") return `₹${Number(draft[key]).toLocaleString("en-IN")}`;
-    if (key === "courseStructure") return structureText(draft[key]);
+    if (listFields.has(key)) return structureText(draft[key]);
+    if (key === "minimumPercentage") return draft[key] === undefined || draft[key] === null || draft[key] === "" ? "—" : `${draft[key]}%`;
     return draft[key] || "—";
   }
 
@@ -124,11 +143,11 @@ export default function CourseManagement({ courses, coursePage, coursePages, cou
         <button className="modal-close" onClick={() => setModal(null)} aria-label="Close">×</button>
         <div className="eyebrow">COURSE MANAGEMENT</div>
         <h2 id="course-modal-title">{modal === "create" ? "Add a course" : modal === "edit" ? "Edit course" : "Course details"}</h2>
-        {modal === "view" ? <dl>{[...fields, ["description", "Description"], ...detailFields].map(([key, label]) => <div key={key}><dt>{label}</dt><dd className="course-modal-detail-value">{displayValue(key)}</dd></div>)}</dl> : <form onSubmit={save}>
+        {modal === "view" ? <><dl>{[...fields, ["description", "Description"], ...detailFields].map(([key, label]) => <div key={key}><dt>{label}</dt><dd className="course-modal-detail-value">{displayValue(key)}</dd></div>)}</dl>{permissions.includes("courses.edit") && <div className="editor-actions"><button className="button dark" onClick={() => setModal("edit")}>Edit course details</button></div>}</> : <form onSubmit={save}>
           <div className="editor-grid">
             {fields.map(([key, label]) => <label key={key}>{label}<input required={key !== "code"} type={key === "annualFee" ? "number" : "text"} min={key === "annualFee" ? "0" : undefined} value={draft[key] ?? ""} onChange={(event) => setDraft({ ...draft, [key]: event.target.value })} /></label>)}
             <label className="editor-wide">Short description<textarea required maxLength="2000" value={draft.description ?? ""} onChange={(event) => setDraft({ ...draft, description: event.target.value })} /></label>
-            {detailFields.map(([key, label]) => <label className="editor-wide" key={key}>{label}<textarea rows={key === "courseStructure" ? 5 : 4} maxLength="4000" value={key === "courseStructure" ? structureText(draft[key]) : draft[key] ?? ""} onChange={(event) => setDraft({ ...draft, [key]: event.target.value })} />{key === "placementDetails" && <small>Use verified placement information. Avoid promising or inventing placement outcomes.</small>}</label>)}
+            {detailFields.map(([key, label]) => <label className="editor-wide" key={key}>{label}{key === "minimumPercentage" ? <input type="number" min="0" max="100" step="0.01" value={draft[key] ?? ""} onChange={(event) => setDraft({ ...draft, [key]: event.target.value })} /> : <textarea rows={key === "courseStructure" ? 5 : 4} maxLength="4000" value={listFields.has(key) ? structureText(draft[key]) : draft[key] ?? ""} onChange={(event) => setDraft({ ...draft, [key]: event.target.value })} />}{key === "placementDetails" && <small>Use verified placement information. Avoid promising or inventing placement outcomes.</small>}</label>)}
           </div>
           <div className="editor-actions"><button type="button" className="button outline" onClick={() => setModal(null)}>Cancel</button><button className="button dark" disabled={saving}>{saving ? "Saving…" : modal === "create" ? "Create course" : "Save changes"}</button></div>
         </form>}

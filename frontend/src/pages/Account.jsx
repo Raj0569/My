@@ -16,7 +16,11 @@ export default function Account() {
       );
       localStorage.setItem(STUDENT_TOKEN, session.token);
       localStorage.setItem(STUDENT_USER, JSON.stringify(session.user));
-      location.href = "/portal";
+      const requestedNext = new URLSearchParams(location.search).get("next");
+      const next = requestedNext?.startsWith("/") && !requestedNext.startsWith("//")
+        ? requestedNext
+        : "/portal";
+      location.href = next;
     } catch (error) {
       setFeedback(error.message);
     }

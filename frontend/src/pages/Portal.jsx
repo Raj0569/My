@@ -44,6 +44,14 @@ export default function Portal() {
                         Submitted{" "}
                         {new Date(item.submittedAt).toLocaleDateString("en-IN")}
                       </p>
+                      {item.slotBookedAt ? (
+                        <p className="portal-stage">
+                          ₹5,000 booking fee paid · slot booked{" "}
+                          {new Date(item.slotBookedAt).toLocaleDateString("en-IN")}
+                        </p>
+                      ) : item.payment?.status === "created" ? (
+                        <p className="portal-stage">Registration payment is pending.</p>
+                      ) : null}
                     </div>
                     <span className="status-pill">{item.status}</span>
                     {item.approvalStage && !["complete", "rejected"].includes(item.approvalStage) && <small className="portal-stage">Waiting for {approvalLabels[item.approvalStage] || item.approvalStage}</small>}

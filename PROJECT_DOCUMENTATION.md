@@ -80,7 +80,7 @@ Approval history stores the stage, decision, remark, timestamp, and staff accoun
 | `Applicant` | Account for a person applying for admission | Name, email, phone, password hash |
 | `Application` | Admission request and workflow history | Application number, applicant/student links, course, personal/address details, academic details, status, approval stage/history |
 | `Student` | Enrolled student account | Name, email, phone, password hash, role, enrollment status, applicant link, admission date |
-| `Course` | Course catalogue item | Name, code, category, description, duration, eligibility, detailed criteria, course structure, placement information, annual fee, active status |
+| `Course` | Course catalogue item | Name, code, category, description, duration, eligibility rules, course structure, learning outcomes, required documents, placement information, annual fee, active status |
 | `Admin` | Super Admin or staff account | Name, email, password hash, role, role name, permissions, active status |
 | `AdminRole` | Reusable staff role | Name and permission list |
 | `Enquiry` | Public enquiry and staff follow-up | Contact details, course, message, state, reference |
@@ -181,7 +181,9 @@ Authorization: Bearer <JWT>
 
 | Method | Route | Purpose |
 | --- | --- | --- |
-| `POST` | `/api/applications` | Submit an application as an Applicant |
+| `POST` | `/api/applications/register-order` | Validate the Applicant against configured course rules and create a ₹5,000 Razorpay order |
+| `POST` | `/api/applications/verify-registration-payment` | Verify signature and captured payment, book the slot, and submit the application |
+| `POST` | `/api/applications` | Disabled legacy application endpoint; use the paid registration flow |
 | `GET` | `/api/applications/mine` | List the signed-in Applicant/Student's applications |
 | `GET` | `/api/applications/number/:applicationNumber` | Read an application the user owns (staff may view) |
 | `GET` | `/api/applications/inbox` | List applications at the signed-in staff member's stage |

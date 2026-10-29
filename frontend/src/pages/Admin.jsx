@@ -453,6 +453,7 @@ function Admin() {
                     <th>Student</th>
                     <th>Course</th>
                     <th>Submitted</th>
+                    <th>Slot booking</th>
                     <th>Status</th>
                     <th>Approval stage</th>
                     <th>Details</th>
@@ -473,6 +474,7 @@ function Admin() {
                       <td>
                         {new Date(item.submittedAt).toLocaleDateString("en-IN")}
                       </td>
+                      <td>{item.payment?.status === "captured" ? `₹${(item.payment.amountPaise || 500000) / 100} · Paid` : item.payment?.status === "pending" ? "Payment pending" : "—"}</td>
                       <td>
                         <span className="status-pill">{item.status}</span>
                       </td>
@@ -596,7 +598,13 @@ function Admin() {
                   ["Address", selected.personalDetails?.address],
                   ["Course", selected.course?.name],
                   ["Qualification", selected.academicDetails?.qualification],
+                  ["Stream", selected.academicDetails?.stream],
+                  ["Percentage", selected.academicDetails?.percentage != null ? `${selected.academicDetails.percentage}%` : null],
+                  ["Subjects", selected.academicDetails?.subjects?.join(", ")],
                   ["Passing year", selected.academicDetails?.passingYear],
+                  ["Slot fee status", selected.payment?.status === "captured" ? "Paid · ₹5,000" : selected.payment?.status === "pending" ? "Payment pending" : null],
+                  ["Payment ID", selected.payment?.paymentId],
+                  ["Slot booked at", selected.slotBookedAt && new Date(selected.slotBookedAt).toLocaleString("en-IN")],
                   ["Application number", selected.applicationNumber],
                   ["Status", selected.status],
                 ].map(([label, value]) => (

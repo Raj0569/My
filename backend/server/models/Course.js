@@ -8,7 +8,13 @@ const courseSchema = new mongoose.Schema({
   duration: { type: String, required: true },
   eligibility: { type: String, required: true },
   eligibilityDetails: { type: String, default: '', maxlength: 4000 },
+  eligibleQualifications: { type: [String], default: [] },
+  eligibleStreams: { type: [String], default: [] },
+  requiredSubjects: { type: [String], default: [] },
+  minimumPercentage: { type: Number, min: 0, max: 100 },
   courseStructure: { type: [String], default: [] },
+  learningOutcomes: { type: [String], default: [] },
+  requiredDocuments: { type: [String], default: [] },
   placementDetails: { type: String, default: '', maxlength: 4000 },
   annualFee: { type: Number, required: true, min: 0 },
   isActive: { type: Boolean, default: true }
