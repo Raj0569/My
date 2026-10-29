@@ -7,6 +7,7 @@ const cors = require("cors");
 const path = require("path");
 const connectDatabase = require("./config/database");
 const bootstrapAdmin = require("./config/bootstrapAdmin");
+const seedCourses = require("./scripts/seed-courses");
 const authRoutes = require("./routes/auth");
 const courseRoutes = require("./routes/courses");
 const enquiryRoutes = require("./routes/enquiries");
@@ -85,6 +86,7 @@ app.get("*", (_request, response) =>
 );
 
 connectDatabase()
+  .then(seedCourses)
   .then(bootstrapAdmin)
   .then(() => {
     app.listen(port, () =>

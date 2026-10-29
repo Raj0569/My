@@ -80,7 +80,7 @@ Approval history stores the stage, decision, remark, timestamp, and staff accoun
 | `Applicant` | Account for a person applying for admission | Name, email, phone, password hash |
 | `Application` | Admission request and workflow history | Application number, applicant/student links, course, personal/address details, academic details, status, approval stage/history |
 | `Student` | Enrolled student account | Name, email, phone, password hash, role, enrollment status, applicant link, admission date |
-| `Course` | Course catalogue item | Name, code, category, description, duration, eligibility, annual fee, active status |
+| `Course` | Course catalogue item | Name, code, category, description, duration, eligibility, detailed criteria, course structure, placement information, annual fee, active status |
 | `Admin` | Super Admin or staff account | Name, email, password hash, role, role name, permissions, active status |
 | `AdminRole` | Reusable staff role | Name and permission list |
 | `Enquiry` | Public enquiry and staff follow-up | Contact details, course, message, state, reference |

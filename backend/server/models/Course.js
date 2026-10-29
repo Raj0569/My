@@ -7,6 +7,9 @@ const courseSchema = new mongoose.Schema({
   description: { type: String, required: true, maxlength: 2000 },
   duration: { type: String, required: true },
   eligibility: { type: String, required: true },
+  eligibilityDetails: { type: String, default: '', maxlength: 4000 },
+  courseStructure: { type: [String], default: [] },
+  placementDetails: { type: String, default: '', maxlength: 4000 },
   annualFee: { type: Number, required: true, min: 0 },
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });

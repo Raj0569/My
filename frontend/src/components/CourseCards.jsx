@@ -16,6 +16,9 @@ export default function CourseCards({ courses }) {
             {course.duration}
             <span>{course.eligibility}</span>
           </div>
+          <a className="text-link course-details-link" href={`/courses/${course._id}`}>
+            View course details ↗
+          </a>
           <a className="text-link" href={`/apply?course=${course._id}`}>
             Apply for this course ↗
           </a>

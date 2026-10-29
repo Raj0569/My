@@ -36,7 +36,7 @@ router.post('/', requireAuth, requireAdmin, requirePermission('courses.create'),
 }));
 
 router.patch('/:id', requireAuth, requireAdmin, requirePermission('courses.edit'), asyncHandler(async (request, response) => {
-  const allowed = ['name', 'code', 'category', 'description', 'duration', 'eligibility', 'annualFee', 'isActive'];
+  const allowed = ['name', 'code', 'category', 'description', 'duration', 'eligibility', 'eligibilityDetails', 'courseStructure', 'placementDetails', 'annualFee', 'isActive'];
   const updates = Object.fromEntries(Object.entries(request.body).filter(([key]) => allowed.includes(key)));
   const course = await Course.findByIdAndUpdate(request.params.id, updates, { new: true, runValidators: true });
   if (!course) return response.status(404).json({ message: 'Course not found.' });

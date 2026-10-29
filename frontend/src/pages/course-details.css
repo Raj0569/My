@@ -1,0 +1,136 @@
+.course-detail-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 25px 90px;
+}
+
+.course-back-link {
+  display: inline-block;
+  margin-bottom: 34px;
+}
+
+.course-details-link {
+  margin-bottom: 9px;
+}
+
+.course-modal-detail-value {
+  white-space: pre-line;
+}
+
+.course-detail-hero {
+  padding: 38px;
+  background: #eff0e9;
+}
+
+.course-detail-hero h1 {
+  margin: 14px 0 12px;
+  font: 500 clamp(38px, 5vw, 62px)/1.05 var(--display);
+  letter-spacing: -.065em;
+}
+
+.course-detail-hero > p,
+.course-detail-section > p {
+  max-width: 700px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.course-detail-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 30px 0 24px;
+  border-top: 1px solid #d4d6cd;
+}
+
+.course-detail-facts > div {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px 4px 0;
+}
+
+.course-detail-facts span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.course-detail-facts strong {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.course-detail-sections {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.course-detail-section {
+  padding: 30px 34px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.course-detail-section h2 {
+  margin: 10px 0 12px;
+  font: 600 25px var(--display);
+  letter-spacing: -.04em;
+}
+
+.course-structure-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: structure;
+}
+
+.course-structure-list li {
+  position: relative;
+  padding: 13px 15px 13px 48px;
+  background: #f6f7f2;
+  color: #4e564b;
+  font-size: 12px;
+  line-height: 1.6;
+  counter-increment: structure;
+}
+
+.course-structure-list li::before {
+  position: absolute;
+  left: 15px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+  content: counter(structure, decimal-leading-zero);
+}
+
+.course-detail-note {
+  margin-bottom: 0;
+  color: #858b80;
+  font-size: 10px;
+}
+
+@media (max-width: 620px) {
+  .course-detail-page {
+    padding: 36px 7% 65px;
+  }
+
+  .course-detail-hero,
+  .course-detail-section {
+    padding: 24px 20px;
+  }
+
+  .course-detail-facts {
+    grid-template-columns: 1fr;
+    margin: 22px 0 18px;
+  }
+
+  .course-detail-facts > div {
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #d4d6cd;
+  }
+}

@@ -44,7 +44,7 @@ The included `render.yaml` configures one Render web service to build the fronte
 - `MONGODB_URI`: a MongoDB Atlas connection string for a database you control.
 - `ADMIN_BOOTSTRAP_PASSWORD`: a unique password with at least 12 characters.
 
-Render generates `JWT_SECRET` automatically. The API accepts same-origin requests from its deployed website, so no production `CLIENT_ORIGIN` value is needed. On first startup, the service creates `admin@northfield.local` using `ADMIN_BOOTSTRAP_PASSWORD` if that account does not already exist; later restarts do not reset its password. Keep the database URL and bootstrap password private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
+Render generates `JWT_SECRET` automatically. The API accepts same-origin requests from its deployed website, so no production `CLIENT_ORIGIN` value is needed. On startup, the service adds the sample catalogue and fills in missing course-detail fields without overwriting details already edited by staff. It creates `admin@northfield.local` using `ADMIN_BOOTSTRAP_PASSWORD` if that account does not already exist; later restarts do not reset its password. Keep the database URL and bootstrap password private. The free web service may sleep when idle; consult Render's current plan details before using it for admissions that need reliable availability.
 
 ## API
 
@@ -57,4 +57,4 @@ The API is available at `/api` on port 5000. Protected routes use `Authorization
 - Enquiries: `POST /api/enquiries`; protected staff list and follow-up endpoints
 - Applications: student submit/list/track and protected staff review endpoints
 
-Course descriptions, college branding, fees, and contact details are sample project content.
+Course descriptions, college branding, fees, and contact details are sample project content. The seeded course structures and career paths are indicative examples, not an approved syllabus or verified placement record; staff can replace them with college-confirmed information in the admin Courses section.
