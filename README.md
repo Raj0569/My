@@ -61,3 +61,6 @@ The API is available at `/api` on port 5000. Protected routes use `Authorization
 Course descriptions, college branding, fees, and contact details are sample project content. The seeded course structures and career paths are indicative examples, not an approved syllabus or verified placement record; staff can replace them with college-confirmed information in the admin Courses section.
 
 Course registration checks the structured eligibility rules configured for each course before creating a Razorpay order for the non-refundable ₹5,000 slot-booking fee. The server verifies the payment signature and captured amount before marking a slot booked and moving the application into review. Configure Razorpay to auto-capture payments and test with test-mode keys before enabling live keys.
+
+## Verification & Deployment Status
+- Workspace configured and verified for deployment.
